@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "579955824675",
+    "firebase_url": "https://musiclibrary-54e0c-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "musiclibrary-54e0c",
+    "storage_bucket": "musiclibrary-54e0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579955824675:android:a6befa67818409591b3996",
+        "android_client_info": {
+          "package_name": "Clip.Player"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579955824675-3769pm2tqm84ar0am4iv1q77qr2ktuh5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF9gApa7WmFohn1x7UkE9P-sAHleDXScU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579955824675-3769pm2tqm84ar0am4iv1q77qr2ktuh5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579955824675:android:c1963950f23831b51b3996",
+        "android_client_info": {
+          "package_name": "com.example.clipplayer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579955824675-3769pm2tqm84ar0am4iv1q77qr2ktuh5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF9gApa7WmFohn1x7UkE9P-sAHleDXScU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579955824675-3769pm2tqm84ar0am4iv1q77qr2ktuh5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
