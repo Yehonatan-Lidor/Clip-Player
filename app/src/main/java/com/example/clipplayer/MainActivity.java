@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-    public static boolean isLogged = false;
     private static final String TAG = "EmailPassword";
     // [START declare_auth]
     private FirebaseAuth mAuth;
@@ -52,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createAccount(String email, String password) {
         // [START create_user_with_email]
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -60,27 +60,20 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            updateUI(false, true, user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            updateUI(false, false, null);
                         }
                     }
                 });
-        // [END create_user_with_email]
     }
     public void signInBtn(View view)
     {
         this.signIn(this.email.getText().toString(), this.password.getText().toString());
-        if(MainActivity.isLogged == true)
-        {
-            Intent intent = new Intent(this, ChooseGenreActivity.class);
-            intent.putExtra("uid", this.mAuth.getCurrentUser().getUid());
-            this.startActivity(intent); // pass to the next screen
-        }
     }
 
     public void CreateAccBtn(View view){
@@ -95,16 +88,15 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            MainActivity.isLogged = true;
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            updateUI(true, false, user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
 
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            updateUI(false, false, null);
                         }
                     }
                 });
@@ -112,8 +104,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void reload() { }
 
-    private void updateUI(FirebaseUser user) {
+    private void updateUI(boolean isLogged, boolean isRegistered, FirebaseUser user) {
+        if(isLogged)
+        {
+            Intent intent = new Intent(this, ChooseGenreActivity.class);
+            intent.putExtra("uid", this.mAuth.getCurrentUser().getUid());
+            this.startActivity(intent); // pass to the next screen
+        }
+        else if(isRegistered)
+        {
 
+        }
     }
 
 }

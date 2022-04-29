@@ -36,7 +36,6 @@ public class ChooseGenreActivity extends AppCompatActivity {
         }
         else if(id == R.id.menuEnd) { // signs user out and returns to main menu
             this.mAuth.signOut();
-            MainActivity.isLogged = false;
             Intent intent = new Intent(this, MainActivity.class);
             this.startActivity(intent);
         }
