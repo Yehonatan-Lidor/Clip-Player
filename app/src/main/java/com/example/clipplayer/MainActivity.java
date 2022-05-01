@@ -16,11 +16,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
+    private final String[] GENRES = {"Blues", "Classical", "Country", "Disco", "Hiphop", "Jazz", "Metal", "Pop", "Reggae", "Rock"};
     // [START declare_auth]
     private FirebaseAuth mAuth;
+    private FirebaseDatabase mDatabase;
+
     // [END declare_auth]
     private EditText email, password;
 
@@ -32,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         // [START initialize_auth]
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        this.mDatabase = FirebaseDatabase.getInstance();
         this.email = this.findViewById(R.id.email_text);
         this.password = this.findViewById(R.id.pass_text);
 
@@ -111,9 +120,15 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("uid", this.mAuth.getCurrentUser().getUid());
             this.startActivity(intent); // pass to the next screen
         }
-        else if(isRegistered)
-        {
+        else if(isRegistered) {
+                Map<String, String> map = new HashMap<>();
+            map.put("-1", "");
+            for (String genre : this.GENRES) {
 
+                DatabaseReference ref = this.mDatabase.getReference(genre + "/" + user.getUid());
+                ref.setValue(map);
+
+            }
         }
     }
 
