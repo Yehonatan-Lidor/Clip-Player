@@ -16,11 +16,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
     // [START declare_auth]
     private FirebaseAuth mAuth;
+
+    private DatabaseReference mDatabase;
+
+
     // [END declare_auth]
     private EditText email, password;
 
@@ -31,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         // [START initialize_auth]
         // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+        this.mAuth = FirebaseAuth.getInstance();
+        this.mDatabase = FirebaseDatabase.getInstance().getReference();
         this.email = this.findViewById(R.id.email_text);
         this.password = this.findViewById(R.id.pass_text);
 
@@ -113,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(isRegistered)
         {
+
 
         }
     }
