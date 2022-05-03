@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +33,8 @@ public class ChooseGenreActivity extends AppCompatActivity {
 
         int id = item.getItemId();
         if(id == R.id.add_song){ // will transfer user to song adding activity
-            Toast.makeText(this, "Selected Show Winners", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, AddSongActivity.class);
+            this.startActivity(intent);
         }
         else if(id == R.id.menuEnd) { // signs user out and returns to main menu
             this.mAuth.signOut();
@@ -41,4 +43,5 @@ public class ChooseGenreActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }
