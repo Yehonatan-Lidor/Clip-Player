@@ -10,6 +10,8 @@ import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class AddSongActivity extends AppCompatActivity {
     private final String[] GENRES = {"Blues", "Classical", "Country", "Disco", "Hiphop", "Jazz", "Metal", "Pop", "Reggae", "Rock"};
@@ -17,10 +19,13 @@ public class AddSongActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText songName;
     private static String genre;
+    private StorageReference storageRef;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         this.mDatabase = FirebaseDatabase.getInstance();
         this.mAuth = FirebaseAuth.getInstance();
+        this.storageRef = FirebaseStorage.getInstance().getReference();
         this.songName = this.findViewById(R.id.song_name);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_song);

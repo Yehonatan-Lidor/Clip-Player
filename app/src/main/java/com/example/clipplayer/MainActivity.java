@@ -19,12 +19,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
+    private final String[] GENRES = {"Blues", "Classical", "Country", "Disco", "Hiphop", "Jazz", "Metal", "Pop", "Reggae", "Rock"};
     private static final String TAG = "EmailPassword";
     // [START declare_auth]
     private FirebaseAuth mAuth;
 
-    private DatabaseReference mDatabase;
+    private FirebaseDatabase mDatabase;
 
 
     // [END declare_auth]
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         // [START initialize_auth]
         // Initialize Firebase Auth
         this.mAuth = FirebaseAuth.getInstance();
-        this.mDatabase = FirebaseDatabase.getInstance().getReference();
+        this.mDatabase = FirebaseDatabase.getInstance();
         this.email = this.findViewById(R.id.email_text);
         this.password = this.findViewById(R.id.pass_text);
 
@@ -120,6 +124,14 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(isRegistered)
         {
+            Map<String, String> map = new HashMap<>();
+            map.put("-1", "");
+            for (String genre : this.GENRES) {
+
+                DatabaseReference ref = this.mDatabase.getReference(genre + "/" + user.getUid());
+                ref.setValue(map);
+
+            }
 
 
         }
