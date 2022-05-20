@@ -32,7 +32,8 @@ public class ChooseGenreActivity extends AppCompatActivity {
 
         int id = item.getItemId();
         if(id == R.id.add_song){ // will transfer user to song adding activity
-            Toast.makeText(this, "Selected Show Winners", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(ChooseGenreActivity.this, AddSongActivity.class);
+            this.startActivity(intent);
         }
         else if(id == R.id.menuEnd) { // signs user out and returns to main menu
             this.mAuth.signOut();
