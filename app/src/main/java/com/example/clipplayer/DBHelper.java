@@ -16,7 +16,7 @@ import com.example.clipplayer.Song;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASENAME = "songs.db";
+    private static final String DATABASENAME = "database.sqlite";
     private static final String TABLE_RECORD = "songs";
     private static final int DATABASEVERSION = 1;
 
@@ -25,6 +25,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_GENRE = "genre";
     private static final String COLUMN_UID = "uid";
     private static final String COLUMN_DATA = "data";
+    private static final String COLUMN_PATH = "path";
+
 
 
     private static final String[] allColumns = {COLUMN_ID, COLUMN_NAME, COLUMN_GENRE, COLUMN_UID};
@@ -34,13 +36,16 @@ public class DBHelper extends SQLiteOpenHelper {
             COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COLUMN_NAME + " TEXT," +
             COLUMN_GENRE + " TEXT," +
-            COLUMN_UID + " TEXT"+
-            COLUMN_DATA + "BLOB);";
+            COLUMN_UID + " TEXT,"+
+            COLUMN_PATH + " TEXT," +
+            COLUMN_DATA + " BLOB);";
+    private static final String TAG = "EmailPassword";
 
     private SQLiteDatabase database; // access to table
 
     public DBHelper(@Nullable Context context) {
         super(context, DATABASENAME, null, DATABASEVERSION);
+        Log.d(TAG, CREATE_TABLE_USER);
     }
 
 
@@ -56,7 +61,6 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_RECORD);
-        onCreate(sqLiteDatabase);
     }
 
 
@@ -69,6 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_GENRE, song.getGenre());
         values.put(COLUMN_UID, song.getUid());
         values.put(COLUMN_DATA, song.getData());
+        values.put(COLUMN_PATH, song.getPath());
         long id = database.insert(TABLE_RECORD, null, values);
         database.close();
     }
@@ -96,10 +101,14 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = database.query(TABLE_RECORD, allColumns, COLUMN_UID + "=" + uid, null, null, null, null); // cursor points at a certain row
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
-                String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                String genre = cursor.getString(cursor.getColumnIndex(COLUMN_GENRE));
-                byte[] data = cursor.getBlob(cursor.getColumnIndex(COLUMN_DATA));
-                Song song= new Song(name, genre, uid, data);
+
+                Song song= new Song(cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
+                        , cursor.getString(cursor.getColumnIndex(COLUMN_GENRE))
+                        , uid
+                        , cursor.getBlob(cursor.getColumnIndex(COLUMN_DATA))
+                        ,cursor.getString(cursor.getColumnIndex(COLUMN_PATH))
+                );
+
                 songs.add(song);
             }
         }
@@ -115,9 +124,13 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = database.query(TABLE_RECORD, allColumns, COLUMN_UID + "=" + uid + " AND" + COLUMN_GENRE +  "=" + genre, null, null, null, null); // cursor points at a certain row
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
-                String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                byte[] data = cursor.getBlob(cursor.getColumnIndex(COLUMN_DATA));
-                Song song= new Song(name, genre, uid, data);
+
+                Song song= new Song(cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
+                        , genre, uid,
+                        cursor.getBlob(cursor.getColumnIndex(COLUMN_DATA)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_PATH))
+                );
+
                 songs.add(song);
             }
         }

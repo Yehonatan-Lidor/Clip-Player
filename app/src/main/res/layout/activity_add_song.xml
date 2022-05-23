@@ -16,14 +16,13 @@
         android:onClick="chooseGenreBtn"
         android:text="Choose Genre" />
 
-    <EditText
-        android:id="@+id/song_name"
+
+    <Button
+        android:id="@+id/button5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Enter name of song" />
-
+        android:onClick="chooseFileBtn"
+        android:text="Choose File" />
     <Button
         android:id="@+id/button4"
         android:layout_width="match_parent"
