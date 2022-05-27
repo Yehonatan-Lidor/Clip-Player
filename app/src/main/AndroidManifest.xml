@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClipPlayer">
         <activity
+            android:name=".ClipPlayerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RecordClipActivity"
+            android:exported="true" />
+        <activity
             android:name=".AddSongActivity"
             android:exported="true" />
         <activity

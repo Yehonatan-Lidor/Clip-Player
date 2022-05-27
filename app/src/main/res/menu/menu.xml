@@ -8,6 +8,12 @@
         android:title="Add song"
         app:showAsAction="never"/>
     <item
+        android:id="@+id/record_clip"
+        android:orderInCategory="200"
+        android:title="Record a song"
+        app:showAsAction="never"
+        />
+    <item
         android:id="@+id/menuEnd"
         android:orderInCategory="200"
         android:title="Logout"

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
 
-import com.example.clipplayer.Song;
 
 
 public class DBHelper extends SQLiteOpenHelper {

@@ -9,11 +9,10 @@
     android:gravity="center">
 
 
+    <ListView
+        android:id="@+id/genre_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
-
-
-
-
-
-
+        />
 </LinearLayout>
