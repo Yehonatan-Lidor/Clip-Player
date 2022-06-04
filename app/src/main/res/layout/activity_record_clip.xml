@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="recordBtn"
             android:text="Record clip" />
 
         <Button
@@ -34,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="pauseBtn"
             android:text="End Clip" />
 
         <Button
@@ -41,11 +43,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="playBtn"
             android:text="Listen to clip" />
     </LinearLayout>
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/fileOutputName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

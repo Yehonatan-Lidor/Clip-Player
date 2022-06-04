@@ -5,22 +5,15 @@ public class Song {
     private String genre;
     private String uid;
     private String path;
-    private byte[] data;
-    public Song(String name, String genre, String uid, byte[] data, String path) {
+
+
+    public Song(String name, String genre, String uid, String path) {
         this.name = name;
         this.genre = genre;
         this.uid = uid;
-        this.data = data;
         this.path = path;
     }
 
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
-    }
 
     public String getName() {
         return name;

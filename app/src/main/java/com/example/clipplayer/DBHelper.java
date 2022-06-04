@@ -7,10 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.ArrayList;
-
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -36,9 +35,8 @@ public class DBHelper extends SQLiteOpenHelper {
             COLUMN_NAME + " TEXT," +
             COLUMN_GENRE + " TEXT," +
             COLUMN_UID + " TEXT,"+
-            COLUMN_PATH + " TEXT," +
-            COLUMN_DATA + " BLOB);";
-    private static final String TAG = "EmailPassword";
+            COLUMN_PATH + " TEXT);";
+    private static final String TAG = "DBHelper";
 
     private SQLiteDatabase database; // access to table
 
@@ -71,7 +69,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(COLUMN_NAME, song.getName());
         values.put(COLUMN_GENRE, song.getGenre());
         values.put(COLUMN_UID, song.getUid());
-        values.put(COLUMN_DATA, song.getData());
         values.put(COLUMN_PATH, song.getPath());
         long id = database.insert(TABLE_RECORD, null, values);
         database.close();
@@ -101,14 +98,13 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
 
-                Song song= new Song(cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
+                Song s = new Song(cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
                         , cursor.getString(cursor.getColumnIndex(COLUMN_GENRE))
                         , uid
-                        , cursor.getBlob(cursor.getColumnIndex(COLUMN_DATA))
                         ,cursor.getString(cursor.getColumnIndex(COLUMN_PATH))
                 );
 
-                songs.add(song);
+                songs.add(s);
             }
         }
         database.close();
@@ -120,13 +116,13 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         database = getReadableDatabase(); // get access to read the database
         ArrayList<Song> songs = new ArrayList<>();
-        Cursor cursor = database.query(TABLE_RECORD, allColumns, COLUMN_UID + "=" + uid + " AND" + COLUMN_GENRE +  "=" + genre, null, null, null, null); // cursor points at a certain row
+        Log.d(TAG, COLUMN_UID + "='" + uid + "' AND " + COLUMN_GENRE +  "='" + genre + "'");
+        Cursor cursor = database.query(TABLE_RECORD, allColumns, COLUMN_UID + "='" + uid + "' AND " + COLUMN_GENRE +  "='" + genre + "'", null, null, null, null); // cursor points at a certain row
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
 
                 Song song= new Song(cursor.getString(cursor.getColumnIndex(COLUMN_NAME))
                         , genre, uid,
-                        cursor.getBlob(cursor.getColumnIndex(COLUMN_DATA)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_PATH))
                 );
 

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -67,7 +68,7 @@ public class AddSongActivity extends AppCompatActivity {
         else
         {
             File f = new File(this.uri.getPath());
-            Song song = new Song(f.getName(), AddSongActivity.genre,this.mAuth.getUid(), this.inputData, this.uri.getPath());
+            Song song = new Song(f.getName(), AddSongActivity.genre,this.mAuth.getUid(), this.uri.getPath());
             this.dbHelper.insert(song);
             AddSongActivity.genre = "";
             this.uri = null;
@@ -97,7 +98,7 @@ public class AddSongActivity extends AppCompatActivity {
             Toast.makeText(this, "Did not choose file correctly", Toast.LENGTH_SHORT).show();
         }
         String path = this.uri.getPath();
-        if(path.substring(path.lastIndexOf(".") + 1).equals("wav")) // check if file extension is valid
+        if(path.substring(path.lastIndexOf(".") + 1).equals("mp3")) // check if file extension is valid
         {
             InputStream iStream = null;
             try {
@@ -111,7 +112,7 @@ public class AddSongActivity extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(this, "File chosen was not of proper format, please choose .wav files only.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "File chosen was not of proper format, please choose .mp3 files only.", Toast.LENGTH_LONG).show();
             this.uri = null;
         }
 

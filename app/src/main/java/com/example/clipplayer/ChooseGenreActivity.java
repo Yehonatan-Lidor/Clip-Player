@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -15,20 +17,24 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ChooseGenreActivity extends AppCompatActivity {
+public class ChooseGenreActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private FirebaseAuth mAuth;
+    private String[]genres = {"Blues", "Classical", "Country", "Disco", "Hiphop", "Jazz", "Metal", "Pop", "Reggae", "Rock"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_genre);
         this.mAuth = FirebaseAuth.getInstance();
-        ArrayList<String> genreList = new ArrayList<String>(Arrays.asList(new String[]{"Blues", "Classical", "Country", "Disco", "Hiphop", "Jazz", "Metal", "Pop", "Reggae", "Rock"}));
+        ArrayList<String> genreList = new ArrayList<String>(Arrays.asList(genres));
         ArrayAdapter adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, genreList);
 
-        ListView listView = (ListView) findViewById(R.id.list_library);
+        ListView listView = (ListView) findViewById(R.id.genre_list);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
+
+
 
     }
 
@@ -57,5 +63,20 @@ public class ChooseGenreActivity extends AppCompatActivity {
             this.startActivity(intent);
         }
         return true;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        DBHelper dbHelper = new DBHelper(this);
+        Song[] songs = dbHelper.selectAllGenre(this.mAuth.getUid(), this.genres[position]).toArray(new Song[0]);
+        if(songs.length == 0)
+        {
+            Toast.makeText(this, "Library is empty, please add clips to play.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Intent i = new Intent(this, ClipPlayerActivity.class);
+            i.putExtra("genre", this.genres[position]);
+            this.startActivity(i);
+        }
     }
 }

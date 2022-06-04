@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent i = new Intent(this, ClipPlayerActivity.class);
-        this.startActivity(i);
         // [START initialize_auth]
         // Initialize Firebase Auth
         this.mAuth = FirebaseAuth.getInstance();
@@ -120,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
         if(isLogged)
         {
             Intent intent = new Intent(this, ChooseGenreActivity.class);
-            intent.putExtra("uid", this.mAuth.getCurrentUser().getUid());
             this.startActivity(intent); // pass to the next screen
         }
         else if(isRegistered)
