@@ -138,24 +138,30 @@ public class RecordClipActivity extends AppCompatActivity {
     }
 
     public void playBtn(View view) {
-        if(this.fileName != "") {
-            this.mPlayer = new MediaPlayer();
-            try {
-                // Load recording
-                this.mPlayer.setDataSource(this.fileName);
-
-                // below method will prepare our media player
-                this.mPlayer.prepare();
-
-                // below method will start our media player.
-                this.mPlayer.start();
-                Toast.makeText(this, "Recording started playing", Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                Log.e("TAG", "prepare() failed");
-            }
+        this.mPlayer = new MediaPlayer();
+        try {
+            this.mPlayer.setDataSource(getExternalCacheDir().getAbsolutePath() + "/" + this.fileName + ".3gp");
+            this.mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    stopPlay();
+                }
+            });
+            this.mPlayer.prepare();
+            this.mPlayer.start();
+        } catch (IOException e) {
+            Log.e(MainActivity.class.getSimpleName() + ":playRecording()", "prepare() failed");
         }
     }
 
+    public void stopPlay()
+    {
+        if(this.mPlayer != null)
+        {
+            this.mPlayer.release();
+            this.mPlayer = null;
+        }
+    }
     public void addSongBtn(View view) {
 
         Song s = new Song(this.fileName,
