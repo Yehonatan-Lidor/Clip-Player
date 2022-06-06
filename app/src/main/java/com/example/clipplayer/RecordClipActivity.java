@@ -163,17 +163,22 @@ public class RecordClipActivity extends AppCompatActivity {
         }
     }
     public void addSongBtn(View view) {
-
-        Song s = new Song(this.fileName,
-                RecordClipActivity.genre,
-                FirebaseAuth.getInstance().getUid(),
-                getExternalCacheDir().getAbsolutePath() + "/" + this.fileName + ".3gp"
-        );
-        this.dbHelper.insert(s);
-        RecordClipActivity.genre = "";
-        this.fileName = "";
-        this.fileNameText.setText("");
-        this.fileNameText.setHint("Enter Clip Name");
+        if(!this.fileName.equals("")) {
+            Song s = new Song(this.fileName,
+                    RecordClipActivity.genre,
+                    FirebaseAuth.getInstance().getUid(),
+                    getExternalCacheDir().getAbsolutePath() + "/" + this.fileName + ".3gp"
+            );
+            this.dbHelper.insert(s);
+            RecordClipActivity.genre = "";
+            this.fileName = "";
+            this.fileNameText.setText("");
+            this.fileNameText.setHint("Enter Clip Name");
+        }
+        else
+        {
+            Toast.makeText(this, "Clip name field is empty, please enter a name.", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

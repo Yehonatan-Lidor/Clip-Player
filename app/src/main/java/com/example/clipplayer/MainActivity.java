@@ -2,6 +2,7 @@ package com.example.clipplayer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     // [END declare_auth]
     private EditText email, password;
+
+    private MediaPlayer p;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

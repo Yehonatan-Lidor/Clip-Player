@@ -67,8 +67,10 @@ public class AddSongActivity extends AppCompatActivity {
         }
         else
         {
+
             File f = new File(this.uri.getPath());
-            Song song = new Song(f.getName(), AddSongActivity.genre,this.mAuth.getUid(), this.uri.getPath());
+            Log.d("ClipAdded:" , f.getPath());
+            Song song = new Song(f.getName(), AddSongActivity.genre,this.mAuth.getUid(), f.getPath().split(":", 0)[1]);
             this.dbHelper.insert(song);
             AddSongActivity.genre = "";
             this.uri = null;

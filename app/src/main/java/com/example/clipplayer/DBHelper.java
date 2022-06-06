@@ -22,12 +22,11 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_GENRE = "genre";
     private static final String COLUMN_UID = "uid";
-    private static final String COLUMN_DATA = "data";
     private static final String COLUMN_PATH = "path";
 
 
 
-    private static final String[] allColumns = {COLUMN_ID, COLUMN_NAME, COLUMN_GENRE, COLUMN_UID};
+    private static final String[] allColumns = {COLUMN_ID, COLUMN_NAME, COLUMN_GENRE, COLUMN_UID, COLUMN_PATH,};
 
     private static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS " +
             TABLE_RECORD + "(" +
